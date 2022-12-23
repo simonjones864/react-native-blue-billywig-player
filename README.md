@@ -38,4 +38,4 @@ See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the 
 
 ## License
 
-GPL-3.0
+MPL-2.0
