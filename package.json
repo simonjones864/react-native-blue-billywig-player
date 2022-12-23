@@ -1,5 +1,5 @@
 {
-  "name": "react-native-blue-billywig-player",
+  "name": "@simonjones864/react-native-blue-billywig-player",
   "version": "0.1.0",
   "description": "React Native implementation of the Blue Billywig Native Player SDK",
   "main": "lib/commonjs/index",
@@ -35,7 +35,10 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/simonjones864/react-native-blue-billywig-player",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simonjones864/react-native-blue-billywig-player.git"
+  },
   "author": "Simon Jones <simonjones864@gmail.com> (https://github.com/simonjones864)",
   "license": "MPL-2.0",
   "bugs": {
@@ -43,7 +46,7 @@
   },
   "homepage": "https://github.com/simonjones864/react-native-blue-billywig-player#readme",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "@simonjones864:registry": "https://npm.pkg.github.com"
   },
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.7",
@@ -151,5 +154,9 @@
   "dependencies": {
     "deprecated-react-native-prop-types": "^2.3.0",
     "prop-types": "^15.8.1"
+  },
+  "directories": {
+    "example": "example",
+    "lib": "lib"
   }
 }
