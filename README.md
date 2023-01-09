@@ -1,7 +1,7 @@
 
 # react-native-blue-billywig-player
 
-**It allows you to easily integrate the Blue Billywig Native Player SDK into your React Native application. It includes a set of components and methods for rendering and controlling the player, as well as event listeners for receiving updates on the player's state. With this package, you can quickly add advanced video playback capabilities to your React Native app.**
+**This package easily integrates the Blue Billywig Native Player SDK into your React Native application. This allows you to quickly add advanced video playback capabilities. It includes a set of components and methods for rendering and controlling the player, as well as event listeners for receiving updates on the player's state.**
 
 [NPM Package](https://www.npmjs.com/package/@simonjones864/react-native-blue-billywig-player)
 
@@ -23,7 +23,7 @@ $ npx pod-install
 
 ## Usage
 
-Import the component from the module.
+Importing the component from the module.
 
 ```js
 import { BBPlayer } from "@simonjones864/react-native-blue-billywig-player";
@@ -39,6 +39,7 @@ In order to render a player using a JSON source file, you can specify the URL of
     src="https://demo.bbvms.com/p/native_sdk_inoutview/c/4256635.json"
 />
 ```
+
 ## Callbacks
 
 The callbacks for our player component enable you to determine what actions should be taken when specific events happen within the player.
@@ -50,7 +51,7 @@ The callbacks for our player component enable you to determine what actions shou
     style={{ width: 256, height: 144 }}
     src="https://demo.bbvms.com/p/native_sdk_inoutview/c/4256635.json"
     didTriggerPlay={(event) => {
-        console.log("Play")
+        console.log("Play event was triggered!");
     }}
 />
 ```
