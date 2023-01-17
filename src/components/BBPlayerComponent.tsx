@@ -34,6 +34,21 @@ interface State {
 }
 
 export class BBPlayer extends React.Component<PlayerProps, State> {
+  eventHandlers: any = {
+    didTriggerPlaying: this.props.didTriggerPlaying,
+    didTriggerPlay: this.props.didTriggerPlay,
+    didTriggerPause: this.props.didTriggerPause,
+    didTriggerEnded: this.props.didTriggerEnded,
+    didTriggerSeeking: this.props.didTriggerSeeking,
+    didTriggerSeeked: this.props.didTriggerSeeked,
+    didTriggerAdLoaded: this.props.didTriggerAdLoaded,
+    didTriggerAdStarted: this.props.didTriggerAdStarted,
+    didTriggerAdFinished: this.props.didTriggerAdFinished,
+    didTriggerAllAdsCompleted: this.props.didTriggerAllAdsCompleted,
+    didRequestCollapse: this.props.didRequestCollapse,
+    didRequestExpand: this.props.didRequestExpand,
+  };
+
   constructor(props: PlayerProps) {
     super(props);
     this.state = {
@@ -41,81 +56,31 @@ export class BBPlayer extends React.Component<PlayerProps, State> {
       height: this.props.style.height || 0,
     };
   }
+
   componentDidMount() {
     const emitter = new NativeEventEmitter(NativeModules.EventEmitter);
     if (!emitter) {
       console.log('No emitter found');
       return;
     }
-    emitter.addListener('didTriggerPlaying', () => {
-      this.props.didTriggerPlaying();
-    });
 
-    emitter.addListener('didTriggerPlay', () => {
-      this.props.didTriggerPlay();
-    });
+    Object.keys(this.eventHandlers).forEach((eventName) => {
+      this.eventHandlers[eventName] &&
+        emitter.addListener(eventName, this.eventHandlers[eventName]);
 
-    emitter.addListener('didTriggerPause', () => {
-      this.props.didTriggerPause();
-    });
-
-    emitter.addListener('didTriggerEnded', () => {
-      this.props.didTriggerEnded();
-    });
-
-    emitter.addListener('didTriggerSeeking', () => {
-      this.props.didTriggerSeeking();
-    });
-
-    emitter.addListener('didTriggerSeeked', () => {
-      this.props.didTriggerSeeked();
-    });
-
-    emitter.addListener('didTriggerAdLoaded', () => {
-      this.props.didTriggerAdLoaded();
-    });
-
-    emitter.addListener('didTriggerAdStarted', () => {
-      this.props.didTriggerAdStarted();
-      if (Platform.OS === 'ios') return;
+      if (eventName !== 'didTriggerAdStarted' || Platform.OS === 'ios') return;
       this.setState({ height: this.state.height - 1 });
       setTimeout(() => this.setState({ height: this.state.height + 1 }), 10);
     });
-
-    emitter.addListener('didTriggerAdFinished', () => {
-      this.props.didTriggerAdFinished();
-    });
-
-    emitter.addListener('didTriggerAllAdsCompleted', () => {
-      this.props.didTriggerAllAdsCompleted();
-    });
-
-    emitter.addListener('didRequestCollapse', () =>
-      this.props.didRequestCollapse()
-    );
-
-    emitter.addListener('didRequestExpand', () =>
-      this.props.didRequestExpand()
-    );
   }
 
   componentWillUnmount(): void {
     const emitter = new NativeEventEmitter(NativeModules.EventEmitter);
-    [
-      'didTriggerPlaying',
-      'didTriggerPlay',
-      'didTriggerPause',
-      'didTriggerEnded',
-      'didTriggerSeeking',
-      'didTriggerSeeked',
-      'didTriggerAdLoaded',
-      'didTriggerAdStarted',
-      'didTriggerAdFinished',
-      'didTriggerAllAdsCompleted',
-      'didRequestCollapse',
-      'didRequestExpand',
-    ].forEach((eventName) => emitter.removeAllListeners(eventName));
+    Object.keys(this.eventHandlers).forEach((eventName) =>
+      emitter.removeAllListeners(eventName)
+    );
   }
+
   render = () => {
     return (
       <PlayerView
