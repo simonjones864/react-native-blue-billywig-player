@@ -5,9 +5,9 @@ import {
   UIManager,
   Platform,
   requireNativeComponent,
-  ViewPropTypes,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import { ViewPropTypes } from 'deprecated-react-native-prop-types';
 
 const propTypes: any = {
   ...ViewPropTypes,

@@ -11,7 +11,6 @@ export default function App() {
         didTriggerPlay={() => console.log('PLAY')}
         didTriggerPause={() => console.log('PAUSE')}
         didTriggerEnded={() => console.log('ENDED')}
-        chrome
         style={styles.player}
       />
     </SafeAreaView>
