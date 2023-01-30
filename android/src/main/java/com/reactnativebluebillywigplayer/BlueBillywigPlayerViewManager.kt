@@ -31,7 +31,7 @@ class BlueBillywigPlayerViewManager(reactApplicationContext: ReactApplicationCon
     // var options: Map<String, Any?> = mapOf()
     view.player?.loadWithClipJson(src)
   }
-ß
+
   @ReactProp(name = "paused")
   fun setPaused(view: BBNativePlayerView, paused: Boolean) {
     if(paused) {
