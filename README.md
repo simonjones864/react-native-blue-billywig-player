@@ -59,7 +59,7 @@ The callbacks for our player component enable you to determine what actions shou
 <BBPlayer
   style={{ width: 256, height: 144 }}
   src="https://demo.bbvms.com/p/native_sdk_inoutview/c/4256635.json"
-  didTriggerPlay={(event) => {
+  didTriggerPlay={(event: any) => {
     console.log('Play event was triggered!');
   }}
 />
