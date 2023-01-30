@@ -43,7 +43,7 @@ class BlueBillywigPlayerViewManager(reactApplicationContext: ReactApplicationCon
 
   @ReactProp(name = "muted")
   fun setMuted(view: BBNativePlayerView, muted: Boolean) {
-    view.player?.muted = muted≈ß
+    view.player?.muted = muted
   }
 
   override fun didTriggerPlaying(view: BBNativePlayerView) {
