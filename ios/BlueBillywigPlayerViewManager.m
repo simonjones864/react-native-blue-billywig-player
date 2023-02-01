@@ -11,5 +11,7 @@ RCT_EXTERN_METHOD(supportedEvents)
 @interface RCT_EXTERN_MODULE(BlueBillywigPlayerViewManager, RCTViewManager)
 
 RCT_EXPORT_VIEW_PROPERTY(src, NSString)
+RCT_EXPORT_VIEW_PROPERTY(paused, BOOL);
+RCT_EXPORT_VIEW_PROPERTY(muted, BOOL);
 
 @end

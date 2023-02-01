@@ -16,10 +16,11 @@ class BlueBillywigPlayerViewManager: RCTViewManager {
   }
 }
 
+@objc(BlueBillywigPlayerView)
 class BlueBillywigPlayerView : UIView, BBNativePlayerViewDelegate {
   private var src: String = ""
   private var controller: UIViewController? = nil
-  private var player: BBNativePlayerView? = nil
+  private var view: BBNativePlayerView? = nil
 
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
@@ -30,75 +31,85 @@ class BlueBillywigPlayerView : UIView, BBNativePlayerViewDelegate {
     self.controller = uiViewController
   }
 
+  @objc(setPaused:)
+  func setPaused(paused: Bool) {
+      if(paused) {
+        self.view?.player.pause()
+      } else {
+        self.view?.player.play()
+      }
+  }
+
+  @objc(setMuted:)
+  func setMuted(muted: Bool) {
+    self.view?.player.muted = muted
+  }
+
   @objc(setSrc:)
   func setSrc(src: String) {
     self.src = src
-    self.player = BBNativePlayer.createPlayerView(
+    self.view = BBNativePlayer.createPlayerView(
       uiViewController: self.controller!,
       frame: self.frame,
       jsonUrl: self.src
     )
 
-    self.addSubview(self.player!)
-    self.player?.translatesAutoresizingMaskIntoConstraints = false
-    self.player?.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor).isActive = true
-    self.player?.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0 ).isActive = true
-    self.player?.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor).isActive = true
-    self.player?.heightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.heightAnchor).isActive = true
-    self.player?.delegate = self
+    self.addSubview(self.view!)
+    self.view?.translatesAutoresizingMaskIntoConstraints = false
+    self.view?.leftAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leftAnchor).isActive = true
+    self.view?.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 0 ).isActive = true
+    self.view?.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor).isActive = true
+    self.view?.heightAnchor.constraint(equalTo: self.safeAreaLayoutGuide.heightAnchor).isActive = true
+    self.view?.delegate = self
   }
 
-  func bbNativePlayerView(didTriggerPlaying playerView: BBNativePlayerView) {
+  func bbNativePlayerView(didTriggerPlaying view: BBNativePlayerView) {
     EventEmitter.emitter.sendEvent(withName: "didTriggerPlaying", body: [])
   }
 
-  func bbNativePlayerView(didTriggerPlay playerView: BBNativePlayerView) {
+  func bbNativePlayerView(didTriggerPlay view: BBNativePlayerView) {
     EventEmitter.emitter.sendEvent(withName: "didTriggerPlay", body: [])
   }
 
-  func bbNativePlayerView(didTriggerPause playerView: BBNativePlayerView) {
+  func bbNativePlayerView(didTriggerPause view: BBNativePlayerView) {
     EventEmitter.emitter.sendEvent(withName: "didTriggerPause", body: [])
   }
 
-  func bbNativePlayerView(didTriggerEnded playerView: BBNativePlayerView) {
+  func bbNativePlayerView(didTriggerEnded view: BBNativePlayerView) {
     EventEmitter.emitter.sendEvent(withName: "didTriggerEnded", body: [])
   }
 
-  func bbNativePlayerView(didTriggerSeeking playerView: BBNativePlayerView) {
+  func bbNativePlayerView(didTriggerSeeking view: BBNativePlayerView) {
     EventEmitter.emitter.sendEvent(withName: "didTriggerSeeking", body: [])
   }
 
-  func bbNativePlayerView(didTriggerSeeked playerView: BBNativePlayerView) {
-    EventEmitter.emitter.sendEvent(withName: "didTriggerSeeked", body: [])
-  }
-
-  func bbNativePlayerView(didTriggerAdLoaded playerView: BBNativePlayerView) {
+  func bbNativePlayerView(didTriggerAdLoaded view: BBNativePlayerView) {
     EventEmitter.emitter.sendEvent(withName: "didTriggerAdLoaded", body: [])
   }
 
-  func bbNativePlayerView(didTriggerAdStarted playerView: BBNativePlayerView) {
+  func bbNativePlayerView(didTriggerAdStarted view: BBNativePlayerView) {
     EventEmitter.emitter.sendEvent(withName: "didTriggerAdStarted", body: [])
   }
 
-  func bbNativePlayerView(didTriggerAdFinished playerView: BBNativePlayerView) {
+  func bbNativePlayerView(didTriggerAdFinished view: BBNativePlayerView) {
     EventEmitter.emitter.sendEvent(withName: "didTriggerAdFinished", body: [])
   }
 
-  func bbNativePlayerView(didTriggerAllAdsCompleted playerView: BBNativePlayerView) {
+  func bbNativePlayerView(didTriggerAllAdsCompleted view: BBNativePlayerView) {
     EventEmitter.emitter.sendEvent(withName: "didTriggerAllAdsCompleted", body: [])
   }
 
-  func bbNativePlayerView(didRequestCollapse playerView: BBNativePlayerView) {
+  func bbNativePlayerView(didRequestCollapse view: BBNativePlayerView) {
     EventEmitter.emitter.sendEvent(withName: "didRequestCollapse", body: [])
   }
 
-  func bbNativePlayerView(didRequestExpand playerView: BBNativePlayerView) {
+  func bbNativePlayerView(didRequestExpand view: BBNativePlayerView) {
     EventEmitter.emitter.sendEvent(withName: "didRequestExpand", body: [])
   }
 
   func destroy() {
-    self.player?.destroy()
-    self.player = nil
+    self.view?.destroy()
+    self.view = nil
   }
 }
 
@@ -116,7 +127,6 @@ open class EventEmitter: RCTEventEmitter {
       "didTriggerPlay",
       "didTriggerPause",
       "didTriggerSeeking",
-      "didTriggerSeeked",
       "didTriggerPlaying",
       "didTriggerEnded",
       "didTriggerAdLoaded",
