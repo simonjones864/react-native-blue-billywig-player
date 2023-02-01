@@ -28,8 +28,22 @@ class BlueBillywigPlayerViewManager(reactApplicationContext: ReactApplicationCon
   @ReactProp(name = "src")
   fun setSrc(view: BBNativePlayerView, src: String) {
     this.src = src
-    var options: Map<String, Any?> = mapOf()
-    view.setupWithJsonUrl(src, options)
+    // var options: Map<String, Any?> = mapOf()
+    view.player?.loadWithClipJson(src)
+  }
+
+  @ReactProp(name = "paused")
+  fun setPaused(view: BBNativePlayerView, paused: Boolean) {
+    if(paused) {
+      view.player?.pause()
+    } else {
+      view.player?.play()
+    }
+  }
+
+  @ReactProp(name = "muted")
+  fun setMuted(view: BBNativePlayerView, muted: Boolean) {
+    view.player?.muted = muted
   }
 
   override fun didTriggerPlaying(view: BBNativePlayerView) {
