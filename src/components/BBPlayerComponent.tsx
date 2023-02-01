@@ -12,6 +12,8 @@ import { ViewPropTypes } from 'deprecated-react-native-prop-types';
 const propTypes: any = {
   ...ViewPropTypes,
   src: PropTypes.string.isRequired,
+  paused: PropTypes.bool,
+  muted: PropTypes.bool,
   didTriggerPlaying: PropTypes.func,
   didTriggerPlay: PropTypes.func,
   didTriggerPause: PropTypes.func,
@@ -28,12 +30,7 @@ const propTypes: any = {
 
 type PlayerProps = PropTypes.InferProps<typeof propTypes>;
 
-interface State {
-  width: number;
-  height: number;
-}
-
-export class BBPlayer extends React.Component<PlayerProps, State> {
+export class BBPlayer extends React.Component<PlayerProps> {
   eventHandlers: any = {
     didTriggerPlaying: this.props.didTriggerPlaying,
     didTriggerPlay: this.props.didTriggerPlay,
@@ -51,26 +48,17 @@ export class BBPlayer extends React.Component<PlayerProps, State> {
 
   constructor(props: PlayerProps) {
     super(props);
-    this.state = {
-      width: this.props.style.width || 0,
-      height: this.props.style.height || 0,
-    };
   }
 
   componentDidMount() {
     const emitter = new NativeEventEmitter(NativeModules.EventEmitter);
     if (!emitter) {
-      console.log('No emitter found');
       return;
     }
 
     Object.keys(this.eventHandlers).forEach((eventName) => {
       this.eventHandlers[eventName] &&
         emitter.addListener(eventName, this.eventHandlers[eventName]);
-
-      if (eventName !== 'didTriggerAdStarted' || Platform.OS === 'ios') return;
-      this.setState({ height: this.state.height - 1 });
-      setTimeout(() => this.setState({ height: this.state.height + 1 }), 10);
     });
   }
 
@@ -82,16 +70,7 @@ export class BBPlayer extends React.Component<PlayerProps, State> {
   }
 
   render = () => {
-    return (
-      <PlayerView
-        {...this.props}
-        style={{
-          ...this.props.style,
-          width: this.state.width,
-          height: this.state.height,
-        }}
-      />
-    );
+    return <PlayerView {...this.props} />;
   };
 }
 

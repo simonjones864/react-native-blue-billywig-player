@@ -7579,7 +7579,7 @@ plist@^3.0.2, plist@^3.0.5:
     base64-js "^1.5.1"
     xmlbuilder "^15.1.1"
 
-pod-install@^0.1.0:
+pod-install@^0.1.38:
   version "0.1.38"
   resolved "https://registry.npmjs.org/pod-install/-/pod-install-0.1.38.tgz"
   integrity sha512-NeDWGigjJRriOIKBOvpW2/tK2tYLfyUT7ia6C6L+oarCAhBNP+IGODWdU+GEAqvfsseqOApcFclpXAJTL0UPzA==
