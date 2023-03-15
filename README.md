@@ -43,11 +43,12 @@ In order to render a player using a JSON source file, you can specify the URL of
 
 These attributes can be utilized to set values and customize the behavior of the player.
 
-| Attribute    | Description                                                                                                                                                        | type    |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
-| **`src`**    | Sets the source URL for the media to be played by the player component.                                                                                            | string  |
-| **`paused`** | Pause and resume the media playback by setting its value to either true or false.                                                                                  | boolean |
-| **`muted`**  | Control the audio of the media by setting its value to either true or false. A value of true means the audio is muted, while a value of false means it's un-muted. | boolean |
+| Attribute      | Description                                                                                                                                                        | type    |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
+| **`src`**      | Sets the source URL for the media to be played by the player component.                                                                                            | string  |
+| **`autoPlay`** | Indicates whether the audio or video should start playing as soon as it is loaded. Should be set before the src attribute.                                         | boolean |
+| **`paused`**   | Pause and resume the media playback by setting its value to either true or false.                                                                                  | boolean |
+| **`muted`**    | Control the audio of the media by setting its value to either true or false. A value of true means the audio is muted, while a value of false means it's un-muted. | boolean |
 
 ## Callbacks
 
