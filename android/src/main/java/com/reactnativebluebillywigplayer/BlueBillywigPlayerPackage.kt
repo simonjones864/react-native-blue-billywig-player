@@ -6,11 +6,6 @@ import com.facebook.react.uimanager.ViewManager
 
 
 class BlueBillywigPlayerPackage : ReactPackage {
-
-    // override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
-    //     return listOf()
-    // }
-
     override fun createNativeModules(
         reactContext: ReactApplicationContext
     ): MutableList<NativeModule> = listOf(EventEmitter(reactContext)).toMutableList()

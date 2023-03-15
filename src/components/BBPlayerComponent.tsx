@@ -12,6 +12,7 @@ import { ViewPropTypes } from 'deprecated-react-native-prop-types';
 const propTypes: any = {
   ...ViewPropTypes,
   src: PropTypes.string.isRequired,
+  autoPlay: PropTypes.bool,
   paused: PropTypes.bool,
   muted: PropTypes.bool,
   didTriggerPlaying: PropTypes.func,
@@ -52,10 +53,6 @@ export class BBPlayer extends React.Component<PlayerProps> {
 
   componentDidMount() {
     const emitter = new NativeEventEmitter(NativeModules.EventEmitter);
-    if (!emitter) {
-      return;
-    }
-
     Object.keys(this.eventHandlers).forEach((eventName) => {
       this.eventHandlers[eventName] &&
         emitter.addListener(eventName, this.eventHandlers[eventName]);

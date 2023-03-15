@@ -17,6 +17,7 @@ class BlueBillywigPlayerViewManager(reactApplicationContext: ReactApplicationCon
   override fun getName() = "BlueBillywigPlayerView"
 
   private var eventEmitter: EventEmitter = EventEmitter(reactApplicationContext)
+  private var autoPlay: Boolean? = null
   private var src: String? = null
 
   override fun createViewInstance(context: ThemedReactContext) : BBNativePlayerView {
@@ -28,8 +29,12 @@ class BlueBillywigPlayerViewManager(reactApplicationContext: ReactApplicationCon
   @ReactProp(name = "src")
   fun setSrc(view: BBNativePlayerView, src: String) {
     this.src = src
-    // var options: Map<String, Any?> = mapOf()
-    view.player?.loadWithClipJson(src)
+    view.setupWithJsonUrl(src, mapOf("autoPlay" to this.autoPlay))
+  }
+
+  @ReactProp(name = "autoPlay")
+  fun setAutoPlay(view: BBNativePlayerView, autoPlay: Boolean) {
+    this.autoPlay = autoPlay
   }
 
   @ReactProp(name = "paused")
@@ -65,10 +70,6 @@ class BlueBillywigPlayerViewManager(reactApplicationContext: ReactApplicationCon
   override fun didTriggerSeeking(view: BBNativePlayerView) {
     eventEmitter.sendEvent("didTriggerSeeking", Arguments.createMap())
   }
-
-  // override fun didTriggerSeeked(view: BBNativePlayerView) {
-  //   eventEmitter.sendEvent("didTriggerSeeked", Arguments.createMap())
-  // }
 
   override fun didTriggerAdLoaded(view: BBNativePlayerView) {
     eventEmitter.sendEvent("didTriggerAdLoaded", Arguments.createMap())
