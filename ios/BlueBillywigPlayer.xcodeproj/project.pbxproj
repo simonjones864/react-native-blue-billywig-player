@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE7199D429913158008CEE4A /* EventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7199D329913158008CEE4A /* EventEmitter.swift */; };
+		DE7199D629913C66008CEE4A /* BlueBillywigPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7199D529913C66008CEE4A /* BlueBillywigPlayerView.swift */; };
 		F4FF95D7245B92E800C19C63 /* BlueBillywigPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FF95D6245B92E800C19C63 /* BlueBillywigPlayer.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +27,8 @@
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libBlueBillywigPlayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBlueBillywigPlayer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E7B5891CC2AC0600A0062D /* BlueBillywigPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlueBillywigPlayer.m; sourceTree = "<group>"; };
+		DE7199D329913158008CEE4A /* EventEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEmitter.swift; sourceTree = "<group>"; };
+		DE7199D529913C66008CEE4A /* BlueBillywigPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueBillywigPlayerView.swift; sourceTree = "<group>"; };
 		F4FF95D5245B92E700C19C63 /* BlueBillywigPlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlueBillywigPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
 		F4FF95D6245B92E800C19C63 /* BlueBillywigPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueBillywigPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -51,6 +55,8 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				DE7199D529913C66008CEE4A /* BlueBillywigPlayerView.swift */,
+				DE7199D329913158008CEE4A /* EventEmitter.swift */,
 				F4FF95D6245B92E800C19C63 /* BlueBillywigPlayer.swift */,
 				B3E7B5891CC2AC0600A0062D /* BlueBillywigPlayer.m */,
 				F4FF95D5245B92E700C19C63 /* BlueBillywigPlayer-Bridging-Header.h */,
@@ -115,6 +121,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE7199D629913C66008CEE4A /* BlueBillywigPlayerView.swift in Sources */,
+				DE7199D429913158008CEE4A /* EventEmitter.swift in Sources */,
 				F4FF95D7245B92E800C19C63 /* BlueBillywigPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,6 +1,6 @@
 {
   "name": "@simonjones864/react-native-blue-billywig-player",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "React Native implementation of the Blue Billywig Native Player SDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
