@@ -35,7 +35,7 @@ In order to render a player using a JSON source file, you can specify the URL of
 ```js
 <BBPlayer
   style={{ width: 256, height: 144 }}
-  src="https://demo.bbvms.com/p/native_sdk_inoutview/c/4256635.json"
+  src="https://demo.bbvms.com/p/react_native_playout/c/4256635.json"
 />
 ```
 
@@ -43,30 +43,46 @@ In order to render a player using a JSON source file, you can specify the URL of
 
 These attributes can be utilized to set values and customize the behavior of the player.
 
-| Attribute      | Description                                                                                                                                                        | type    |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
-| **`src`**      | Sets the source URL for the media to be played by the player component.                                                                                            | string  |
-| **`autoPlay`** | Indicates whether the audio or video should start playing as soon as it is loaded. Should be set before the src attribute.                                         | boolean |
-| **`paused`**   | Pause and resume the media playback by setting its value to either true or false.                                                                                  | boolean |
-| **`muted`**    | Control the audio of the media by setting its value to either true or false. A value of true means the audio is muted, while a value of false means it's un-muted. | boolean |
-
-## Callbacks
-
-The callbacks for our player component enable you to determine what actions should be taken when specific events happen within the player.
-
-### Example
+| Attribute      | Description                                                             | type    |
+| -------------- | ----------------------------------------------------------------------- | ------- |
+| **`src`**      | Sets the source URL for the media to be played by the player component. | string  |
+| **`autoPlay`** | Overrides the default autoplay behavior of the playout.                 | boolean |
 
 ```js
 <BBPlayer
   style={{ width: 256, height: 144 }}
-  src="https://demo.bbvms.com/p/native_sdk_inoutview/c/4256635.json"
-  didTriggerPlay={(event: any) => {
-    console.log('Play event was triggered!');
-  }}
+  autoPlay={true}
+  src="https://demo.bbvms.com/p/react_native_playout/c/4256635.json"
 />
 ```
 
-### Available callbacks
+## Methods
+
+| Function     | Description                                             | Parameters |
+| ------------ | ------------------------------------------------------- | ---------- |
+| **`play`**   | Start the player                                        | None       |
+| **`pause`**  | Pause the player                                        | None       |
+| **`mute`**   | Mute the player                                         | None       |
+| **`unmute`** | Unmute the player                                       | None       |
+| **`seek`**   | Seek to a specific time. parameter should be in seconds | number     |
+
+```js
+const playerRef = createRef<BBPlayer>();
+
+this.playerRef.current?.play(); // Starts the player
+this.playerRef.current?.seek(20); // Seeks to 20 seconds
+
+<BBPlayer
+  ref={this.playerRef}
+  style={{ width: 256, height: 144 }}
+  src="https://demo.bbvms.com/p/react_native_playout/c/4256635.json"
+/>
+
+```
+
+## Callbacks
+
+The callbacks for our player component enable you to determine what actions should be taken when specific events happen within the player.
 
 The callbacks are wrapped in native events, but do not transmit any parameters.
 Function | Description | Parameters
@@ -83,6 +99,16 @@ Function | Description | Parameters
 **`didTriggerAdStarted`** | Player started an advertisement. | None
 **`didTriggerAdFinished`** | The advertisement finished playing. | None
 **`didTriggerAllAdsCompleted`** | All advertisements finished playing. | None
+
+```js
+<BBPlayer
+  style={{ width: 256, height: 144 }}
+  src="https://demo.bbvms.com/p/react_native_playout/c/4256635.json"
+  didTriggerPlay={(event: any) => {
+    console.log('Play event was triggered!');
+  }}
+/>
+```
 
 ## License
 
