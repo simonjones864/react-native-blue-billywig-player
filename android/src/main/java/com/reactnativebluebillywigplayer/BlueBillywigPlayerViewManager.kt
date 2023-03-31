@@ -42,7 +42,6 @@ class BlueBillywigPlayerViewManager(reactApplicationContext: ReactApplicationCon
   private var src: String? = null
 
   override fun createViewInstance(context: ThemedReactContext) : BBNativePlayerView {
-    // var myContext = context.currentActivity!!.applicationContext!!
     var view = BBNativePlayer.createPlayerView(context, this.src)
     view.delegate = this
     return view
