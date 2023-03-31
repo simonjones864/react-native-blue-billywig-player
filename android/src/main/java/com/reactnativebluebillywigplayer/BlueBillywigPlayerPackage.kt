@@ -13,5 +13,4 @@ class BlueBillywigPlayerPackage : ReactPackage {
     override fun createViewManagers(
         reactContext: ReactApplicationContext
     ): List<ViewManager<*, *>> = listOf(BlueBillywigPlayerViewManager(reactContext))
-
 }

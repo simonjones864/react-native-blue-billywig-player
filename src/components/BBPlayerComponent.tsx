@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import {
   NativeEventEmitter,
   NativeModules,
   UIManager,
   Platform,
   requireNativeComponent,
+  findNodeHandle,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { ViewPropTypes } from 'deprecated-react-native-prop-types';
@@ -32,6 +33,8 @@ const propTypes: any = {
 type PlayerProps = PropTypes.InferProps<typeof propTypes>;
 
 export class BBPlayer extends React.Component<PlayerProps> {
+  playerRef = createRef<BBPlayer>();
+
   eventHandlers: any = {
     didTriggerPlaying: this.props.didTriggerPlaying,
     didTriggerPlay: this.props.didTriggerPlay,
@@ -51,6 +54,62 @@ export class BBPlayer extends React.Component<PlayerProps> {
     super(props);
   }
 
+  /**
+   * Play the player
+   */
+  play = () => {
+    const node = findNodeHandle(this.playerRef.current);
+    const command = (UIManager as { [index: string]: any })[ComponentName]
+      .Commands.play;
+    const params: any[] = [];
+    UIManager.dispatchViewManagerCommand(node, command, params);
+  };
+
+  /**
+   * Pause the player
+   */
+  pause = () => {
+    const node = findNodeHandle(this.playerRef.current);
+    const command = (UIManager as { [index: string]: any })[ComponentName]
+      .Commands.pause;
+    const params: any[] = [];
+    UIManager.dispatchViewManagerCommand(node, command, params);
+  };
+
+  /**
+   * Mute the player
+   */
+  mute = () => {
+    const node = findNodeHandle(this.playerRef.current);
+    const command = (UIManager as { [index: string]: any })[ComponentName]
+      .Commands.mute;
+    const params: any[] = [];
+    UIManager.dispatchViewManagerCommand(node, command, params);
+  };
+
+  /**
+   * Unmute the player
+   */
+  unmute = () => {
+    const node = findNodeHandle(this.playerRef.current);
+    const command = (UIManager as { [index: string]: any })[ComponentName]
+      .Commands.unmute;
+    const params: any[] = [];
+    UIManager.dispatchViewManagerCommand(node, command, params);
+  };
+
+  /**
+   * Seek to a specific offset in seconds
+   * @param offsetInSeconds number - The offset in seconds to seek to
+   */
+  seek = (offsetInSeconds: number) => {
+    const node = findNodeHandle(this.playerRef.current);
+    const command = (UIManager as { [index: string]: any })[ComponentName]
+      .Commands.seek;
+    const params: any[] = [offsetInSeconds];
+    UIManager.dispatchViewManagerCommand(node, command, params);
+  };
+
   componentDidMount() {
     const emitter = new NativeEventEmitter(NativeModules.EventEmitter);
     Object.keys(this.eventHandlers).forEach((eventName) => {
@@ -67,17 +126,17 @@ export class BBPlayer extends React.Component<PlayerProps> {
   }
 
   render = () => {
-    return <PlayerView {...this.props} />;
+    return <PlayerView {...this.props} ref={this.playerRef} />;
   };
 }
 
+const ComponentName = 'BlueBillywigPlayerView';
 const LINKING_ERROR =
   `The package 'react-native-blue-billywig-player' doesn't seem to be linked. Make sure: \n\n` +
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo managed workflow\n';
 
-const ComponentName = 'BlueBillywigPlayerView';
 const PlayerView =
   UIManager.getViewManagerConfig(ComponentName) != null
     ? requireNativeComponent<PlayerProps>(ComponentName)

@@ -26,11 +26,17 @@ class BlueBillywigPlayerView : UIView, BBNativePlayerViewDelegate {
   @objc(setSrc:)
   func setSrc(src: String) {
     self.src = src
+
+    var options: [String: Any] = [:]
+    if let autoPlay = self.autoPlay {
+      options["autoPlay"] = autoPlay // add autoPlay to options
+    }
+
     self.view = BBNativePlayer.createPlayerView(
       uiViewController: self.controller!,
       frame: self.frame,
       jsonUrl: self.src,
-      options: ["autoPlay": self.autoPlay]
+      options: options
     )
 
     self.addSubview(self.view!)
@@ -42,21 +48,26 @@ class BlueBillywigPlayerView : UIView, BBNativePlayerViewDelegate {
     self.view?.delegate = self
   }
 
-  // func play() {
-  //   self.view!.player.play()
-  // }
+  func play() {
+    self.view!.player.play()
+  }
 
-  // func pause() {
-  //   self.view!.player.pause()
-  // }
+  func pause() {
+    self.view!.player.pause()
+  }
 
-  // func mute() {
-  //   self.view!.player.muted = true
-  // }
+  func mute() {
+    self.view!.player.muted = true
+  }
 
-  // func unmute() {
-  //   self.view!.player.muted = false
-  // }
+  func unmute() {
+    self.view!.player.muted = false
+  }
+
+  func seek(offsetInSeconds: NSNumber) {
+    self.view!.player.seek(offsetInSeconds: offsetInSeconds)
+  }
+
 
   func bbNativePlayerView(didTriggerPlaying view: BBNativePlayerView) {
     EventEmitter.emitter.sendEvent(withName: "didTriggerPlaying", body: [])
